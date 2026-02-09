@@ -196,13 +196,13 @@ const WISHES = [
 function WishingWall() {
   const [atlasLoaded, setAtlasLoaded] = useState(false);
   const [grid, setGrid] = useState(Array(20).fill(null));
+  
   const atlasUrl = './DF54A880_fixed.png';     // ids 0..15
   const rivenUrl = './symbol_16_riven.png';    // id 16 only
 
+  const ATLAS_COLS = 4;
+  const ATLAS_ROWS = 4;
 
-  // Derive atlas dimensions from SYMBOLS (supports your 5x5 "Riven" entry)
-  const atlasCols = Math.max(...SYMBOLS.map(s => s.col)) + 1;
-  const atlasRows = Math.max(...SYMBOLS.map(s => s.row)) + 1;
 
   useEffect(() => {
     let alive = true;
@@ -227,18 +227,29 @@ function WishingWall() {
     return () => { alive = false; };
   }, [atlasUrl, rivenUrl]);
 
-
+  
   const getSymbolStyle = (symbol) => {
-    // Protect against 1-wide/1-tall atlas
-    const denomX = Math.max(1, atlasCols - 1);
-    const denomY = Math.max(1, atlasRows - 1);
+    // Standalone symbol (id:16)
+    if (symbol && symbol.id === 16) {
+      return {
+        backgroundImage: `url(${rivenUrl})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      };
+    }
+  
+    // Atlas symbols (ids 0..15)
+    const denomX = Math.max(1, ATLAS_COLS - 1);
+    const denomY = Math.max(1, ATLAS_ROWS - 1);
     const posX = (symbol.col / denomX) * 100;
     const posY = (symbol.row / denomY) * 100;
-
+  
     return {
       backgroundImage: `url(${atlasUrl})`,
-      backgroundSize: `${atlasCols * 100}% ${atlasRows * 100}%`,
-      backgroundPosition: `${posX}% ${posY}%`
+      backgroundSize: `${ATLAS_COLS * 100}% ${ATLAS_ROWS * 100}%`,
+      backgroundPosition: `${posX}% ${posY}%`,
+      backgroundRepeat: 'no-repeat'
     };
   };
 
