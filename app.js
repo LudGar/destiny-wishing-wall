@@ -205,14 +205,28 @@ function WishingWall() {
   const atlasRows = Math.max(...SYMBOLS.map(s => s.row)) + 1;
 
   useEffect(() => {
-    const img = new Image();
-    img.onload = () => setAtlasLoaded(true);
-    img.onerror = () => {
-      console.error(`[WishingWall] Failed to load atlas: ${atlasUrl}`);
-      setAtlasLoaded(false);
-    };
-    img.src = atlasUrl;
-  }, [atlasUrl]);
+    let alive = true;
+  
+    const load = (src) => new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(true);
+      img.onerror = () => reject(new Error(`Failed to load: ${src}`));
+      img.src = src;
+    });
+  
+    Promise.all([
+      load(atlasUrl),
+      load(rivenUrl)
+    ])
+      .then(() => { if (alive) setAtlasLoaded(true); })
+      .catch((err) => {
+        console.error('[WishingWall]', err);
+        if (alive) setAtlasLoaded(false);
+      });
+  
+    return () => { alive = false; };
+  }, [atlasUrl, rivenUrl]);
+
 
   const getSymbolStyle = (symbol) => {
     // Protect against 1-wide/1-tall atlas
