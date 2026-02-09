@@ -196,7 +196,9 @@ const WISHES = [
 function WishingWall() {
   const [atlasLoaded, setAtlasLoaded] = useState(false);
   const [grid, setGrid] = useState(Array(20).fill(null));
-  const atlasUrl = './DF54A880_fixed.png';
+  const atlasUrl = './DF54A880_fixed.png';     // ids 0..15
+  const rivenUrl = './symbol_16_riven.png';    // id 16 only
+
 
   // Derive atlas dimensions from SYMBOLS (supports your 5x5 "Riven" entry)
   const atlasCols = Math.max(...SYMBOLS.map(s => s.col)) + 1;
