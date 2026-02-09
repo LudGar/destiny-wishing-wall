@@ -21,10 +21,9 @@ const SYMBOLS = [
   { id: 13, name: 'Owl',             row: 3, col: 1 },
   { id: 14, name: 'Eagle Head',      row: 3, col: 2 },
   { id: 15, name: 'Eagle',           row: 3, col: 3 },
-
-  // NOTE: This implies a 5x5 atlas (rows/cols 0..4). If your PNG is 4x4, remove this.
-  { id: 16, name: 'Riven',           row: 4, col: 4 }
+  { id: 16, name: 'Riven', standalone: true }   // Standalone symbol (NOT part of atlas grid)
 ];
+
 
 const WISHES = [
   {
