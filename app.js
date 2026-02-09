@@ -259,9 +259,10 @@ function WishingWall() {
       if (next[index] === null) {
         next[index] = SYMBOLS[0];
       } else {
-        const currentIndex = SYMBOLS.findIndex(s => s.id === next[index].id);
-        const nextIndex = (currentIndex + 1) % SYMBOLS.length;
-        next[index] = SYMBOLS[nextIndex];
+      const CYCLE_SYMBOLS = SYMBOLS.filter(s => s.id !== 16);
+      const currentIndex = CYCLE_SYMBOLS.findIndex(s => s.id === next[index].id);
+      const nextIndex = (currentIndex + 1) % CYCLE_SYMBOLS.length;
+      next[index] = CYCLE_SYMBOLS[nextIndex];
       }
       return next;
     });
