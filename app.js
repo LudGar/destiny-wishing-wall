@@ -62,7 +62,7 @@ const WISHES = [
     description: "A wish to look athletic and elegant.",
     pattern: [
         14,   15,   15,   15,   12,
-         6,   14,    4,   12,    6,
+         6,   14,    7,   12,    6,
          6,   12, null,   14,    6,
         12,    5,    5,    5,   14]
   },
