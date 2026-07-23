@@ -1,5 +1,3 @@
-// app.js (NO JSX) — fixes "Unexpected token '<'"
-
 const { useState, useEffect } = React;
 const h = React.createElement;
 
